@@ -49,13 +49,15 @@ async function run() {
                 // step 7: set available to slots to make it easier 
                 service.slots = available;
             })
-
-
-
-
-
             res.send(services);
 
+        })
+
+        app.get('/booking', async (req, res) => {
+            const patient = req.query.patient;
+            const query = { patient: patient };
+            const bookings = await bookingCollection.find(query).toArray();
+            res.send(bookings)
         })
 
         app.post('/booking', async (req, res) => {
